@@ -3,15 +3,17 @@ import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, M
 import { v4 as uuiidv4} from 'uuid'
 
 import { ExpenseTrackerContext } from '../../../context/context'
+import formatDate from '../../../utils/formatDate'
 
 
 import useStyles from './styles'
+import {incomeCategories, expenseCategories} from '../../../constants/categories'
 
 const initialState = {
   amount: '',
   category: '',
   type: 'Income',
-  date: new Date()
+  date: formatDate(new Date())
 }
 
 const Form = () => {
@@ -30,7 +32,8 @@ const Form = () => {
     setFormData(initialState)
   }
 
-  console.log(formData)
+  const selectedCategories = formData.type === 'Income' ?  incomeCategories : expenseCategories
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -58,8 +61,7 @@ const Form = () => {
         <FormControl fullWidth>
           <InputLabel>Category</InputLabel>
           <Select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
-            <MenuItem value='Business'>Business</MenuItem>
-            <MenuItem value='Salary'>Salary</MenuItem>
+              {selectedCategories.map(cat => <MenuItem key={cat.type} value={cat.type}>{cat.type}</MenuItem>)}
           </Select>
         </FormControl>
       </Grid>
@@ -78,7 +80,7 @@ const Form = () => {
           label='Date'
           fullWidth
           value={formData.date}
-          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+          onChange={(e) => setFormData({ ...formData, date: formatDate(e.target.value) })}
         />
       </Grid>
       <Button onClick={createTransaction} className={classes.button} variant='outlined' color='primary' fullWidth>
