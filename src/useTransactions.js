@@ -11,7 +11,6 @@ const useTransactions = (title) => {
   const total = transactionsOfEachType.reduce((acc, cur) => (acc += cur.amount), 0)
   const categories = title === 'Income' ? incomeCategories : expenseCategories
 
-  console.log({ transactionsOfEachType, total, categories })
 
   transactionsOfEachType.forEach((tr) => {
     const category = categories.find((cat) => cat.type === tr.category)
