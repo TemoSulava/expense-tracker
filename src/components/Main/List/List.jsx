@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   List as MUIList,
   ListItem,
@@ -10,35 +10,13 @@ import {
   Slide
 } from '@material-ui/core'
 import { Delete, MoneyOff } from '@material-ui/icons'
+import { ExpenseTrackerContext } from '../../../context/context'
 
 import useStyles from './styles'
 
 const List = () => {
   const classes = useStyles()
-
-  const transactions = [
-    {
-      id: 1,
-      type: 'Income',
-      category: 'Salary',
-      amount: 50,
-      date: 'Mon June 22'
-    },
-    {
-      id: 2,
-      type: 'Expense',
-      category: 'Grocery',
-      amount: 80,
-      date: 'Mon June 22'
-    },
-    {
-      id: 3,
-      type: 'Expense',
-      category: 'Fuel',
-      amount: 150,
-      date: 'Mon June 22'
-    }
-  ]
+  const { transactions, deleteTransaction } = useContext(ExpenseTrackerContext)
 
   return (
     <MUIList dense={false}>
@@ -53,7 +31,7 @@ const List = () => {
             <ListItemText primary={transaction.category} secondary={`$${transaction.amount} - ${transaction.date}`} />
             <ListItemSecondaryAction>
               <IconButton edge='end' aria-label='delete' onClick=''>
-                <Delete />
+                <Delete onClick={() => deleteTransaction(transaction.id)} />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
