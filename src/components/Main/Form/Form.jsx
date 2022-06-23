@@ -4,6 +4,7 @@ import { v4 as uuiidv4} from 'uuid'
 
 import { ExpenseTrackerContext } from '../../../context/context'
 import formatDate from '../../../utils/formatDate'
+import CustomizedSnackbar from '../../Snackbar/Snackbar'
 
 
 import useStyles from './styles'
@@ -18,8 +19,10 @@ const initialState = {
 
 const Form = () => {
   const classes = useStyles()
+  
 
   const [formData, setFormData] = useState(initialState)
+  const [open, setOpen] = useState(false)
   const {addTransaction} = useContext(ExpenseTrackerContext)
 
   const createTransaction = () => {
@@ -28,6 +31,7 @@ const Form = () => {
       amount: Number(formData.amount),
       id: uuiidv4()
     }
+    setOpen(true)
     addTransaction(transaction)
     setFormData(initialState)
   }
@@ -36,6 +40,7 @@ const Form = () => {
 
   return (
     <Grid container spacing={2}>
+      <CustomizedSnackbar open={open} setOpen={setOpen} />
       <Grid item xs={12}>
         <Typography align='center' variant='subtitle2' gutterBottom>
          Coming Soon...
