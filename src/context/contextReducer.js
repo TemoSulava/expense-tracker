@@ -1,5 +1,3 @@
-const transactions = [{ id: 1 }, { id: 2 }]
-
 const contextReducer = (state, action) => {
   let transactions
   switch (action.type) {
