@@ -30,7 +30,7 @@ const useTransactions = (title) => {
     labels: filteredOutCategories.map((cat) => cat.type)
   }
 
-  return {filteredOutCategories, total, chartData}
+  return { total, chartData}
 }
 
 export default useTransactions
